@@ -78,7 +78,7 @@ export default function StreaksScreen() {
 				HABIT_COLLECTION_ID,
 				[Query.equal("user_id", user?.$id ?? "")]
 			);
-			setHabits(response.documents as Habit[]);
+			setHabits(response.documents as unknown as Habit[]);
 		} catch (error) {
 			console.error(error);
 		}
@@ -91,7 +91,7 @@ export default function StreaksScreen() {
 				COMPLETIONS_COLLECTION_ID,
 				[Query.equal("user_id", user?.$id ?? "")]
 			);
-			const completions = response.documents as HabitCompletion[];
+			const completions = response.documents as unknown as HabitCompletion[];
 			setCompletedHabits(completions);
 		} catch (error) {
 			console.error(error);
@@ -165,8 +165,7 @@ export default function StreaksScreen() {
 
 			{rankedHabits.length > 0 && (
 				<View style={styles.rankingContainer}>
-					{" "}
-					<Text style={styles.rankingTitle}> 🏅 Top Streaks</Text>{" "}
+					<Text style={styles.rankingTitle}> 🏅 Top Streaks</Text>
 					{rankedHabits.slice(0, 3).map((item, key) => (
 						<View key={key} style={styles.rankingRow}>
 							<View style={[styles.rankingBadge, badgeStyles[key]]}>
@@ -234,6 +233,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontWeight: "bold",
 		marginBottom: 16,
+		color: "#000000",
 	},
 	card: {
 		marginBottom: 18,

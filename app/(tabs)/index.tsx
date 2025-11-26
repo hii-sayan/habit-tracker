@@ -81,7 +81,7 @@ export default function Index() {
         HABIT_COLLECTION_ID,
         [Query.equal("user_id", user?.$id ?? "")]
       );
-      setHabits(response.documents as Habit[]);
+      setHabits(response.documents as unknown as Habit[]);
     } catch (error) {
       console.error(error);
     }
@@ -99,7 +99,7 @@ export default function Index() {
           Query.greaterThanEqual("completed_at", today.toISOString()),
         ]
       );
-      const completions = response.documents as HabitCompletion[];
+      const completions = response.documents as unknown as HabitCompletion[];
       setCompletedHabits(completions.map((c) => c.habit_id));
     } catch (error) {
       console.error(error);
@@ -175,7 +175,7 @@ export default function Index() {
           {" "}
           Today's Habits
         </Text>
-        <Button mode="text" onPress={signOut} icon={"logout"}>
+        <Button mode="text" onPress={signOut} icon={"logout"} textColor="#4a00b0">
           Logout
         </Button>
       </View>
@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    color: "#000000",
   },
 
   card: {
